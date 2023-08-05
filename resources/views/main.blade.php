@@ -43,7 +43,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="http://127.0.0.1:8000/add">
+                <a class="nav-link" href="{{route('add')}}">
                     <i class="fas fa-plus"></i>
                     <span>Add New Book </span></a>
             </li>
@@ -53,7 +53,7 @@
 
                         <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="http://127.0.0.1:8000/show">
+                <a class="nav-link" href="{{route('show')}}">
                     <i class="fas fa-eye"></i>
                     <span>Show All Books </span></a>
             </li>

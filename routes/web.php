@@ -20,7 +20,7 @@ Route::get('/', function () {
 // make main page
 Route::get('/add', function () {
     return view('add');
-});
+})->name('add');
 
 Route::get('/show', function () {
     $books = [
@@ -29,7 +29,7 @@ Route::get('/show', function () {
         ['title'=>'Vue', 'price'=>100]
     ];
     return view('show', ['books'=>$books]);
-});
+})->name('show');
 
 Auth::routes();
 
