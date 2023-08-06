@@ -1,36 +1,19 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BookController;
+use App\Models\Book;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-// make main page
-Route::get('/add', function () {
-    return view('add');
-})->name('add');
-
-Route::get('/show', function () {
-    $books = [
-        ['title'=>'1984', 'price'=>50],
-        ['title'=>'Laravel', 'price'=>100],
-        ['title'=>'Vue', 'price'=>100]
-    ];
-    return view('show', ['books'=>$books]);
-})->name('show');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// create route /profile
+Route::get('books', [BookController::class, 'index'])->name('books.index');
+Route::get('books/create', [BookController::class, 'create'])->name('books.create');
+Route::get('books/{book}/edit', [BookController::class, 'edit'])->name('books.edit');
+Route::put('books/{book}', [BookController::class, 'update'])->name('books.update');
+Route::post('books', [BookController::class, 'store'])->name('books.store');
+Route::get('books/{book}',[BookController::class,'show'])->name('books.show');
+Route::delete('books/{book}',[BookController::class,'destroy'])->name('books.destroy');
