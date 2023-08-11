@@ -9,6 +9,7 @@
                         <th scope="col">#</th>
                         <th scope="col">Title</th>
                         <th scope="col">Price</th>
+                        <th scope="col">Picture</th>
                         <th scope="col"> Delete</th>
 
                     </tr>
@@ -19,6 +20,7 @@
                             <th scope="row">{{ $book['id'] }}</th>
                             <td>{{ $book['title'] }}</td>
                             <td>{{ $book['price'] }}</td>
+                            <td><img width="60px" height="60px" src="{{ asset('storage/books/') ."/". $book->pic}}" alt=""></td>
                             <td>
                                 <form action="{{ route('books.destroy', $book['id']) }}" method="POST" class="d-inline">
                                     @csrf

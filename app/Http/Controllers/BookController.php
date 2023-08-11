@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Book;
+use App\Models\Category;
+use App\Http\Requests\CreateBookRequest;
+use App\Models\Tag;
 
 class BookController extends Controller
 {
@@ -20,16 +23,31 @@ class BookController extends Controller
     public function create()
     {
         $page = "create book";
-        return view('create-book', ['page' => $page]);
+        $categories = Category::all();
+        $tags=Tag::all();
+        return view('create-book', ['page' => $page,'categories' => $categories,'tags'=>$tags]);
     }
 
-    public function store(Request $request)
+    public function store(CreateBookRequest $request)
     {
-        Book::create([
-            "title" => $request->title,
-            "price" => $request->price,
-            "description" => $request->description,
-        ]);
+        $fileName = Book::uploadFile($request, $request->pic);
+        // Book::create([
+        //     "title" => $request->title,
+        //     "price" => $request->price,
+        //     "description" => $request->description,
+        //     "cat_id" => $request->category,
+        //     "pic" => $fileName
+        // ]);
+        $book = new Book();
+        $book->title = $request->title;
+        $book->price = $request->price;
+        $book->description = $request->description;
+        $book->cat_id = $request->category;
+        $book->pic = $fileName;
+        $book->save();
+        
+        $tags = $request->input('tags');
+        $book->tags()->attach($tags);
         return redirect()->route('books.index');
     }
 
